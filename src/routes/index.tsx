@@ -23,9 +23,10 @@ function Home() {
       <Nav />
       <Hero />
       <ProblemStrip />
+      <DemoSection />
+      <RailAgnostic />
       <HowItWorks />
       <Features />
-      <DemoSection />
       <SdkSnippet />
       <UseCases />
       <Sequence />
@@ -77,19 +78,20 @@ function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[12px] font-medium text-zinc-300 backdrop-blur transition hover:border-white/20 hover:bg-white/[0.06]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-            Now in private beta · MCP-first
+            Now in private beta · MCP-first · No crypto required
           </a>
           <h1 className="mt-6 text-[36px] leading-[1.1] font-semibold tracking-tight text-balance text-white sm:text-[52px] lg:text-[64px] lg:leading-[1.05]">
-            Metered access
+            Decide, meter, and account
             <br />
             <span className="bg-gradient-to-br from-blue-200 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
-              for AI tools.
+              for every AI tool call.
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-balance text-[17px] leading-7 text-zinc-400 sm:text-lg">
-            ToolMeter adds access control, usage limits, billing hooks, and
-            receipts to MCP servers, APIs, and live datasets. Let agents call
-            paid tools safely, under budgets you define.
+            Stripe and x402 move the money. ToolMeter decides whether the call
+            is allowed, meters it, and writes an auditable receipt — for any
+            agent, any end-user, under any subscription or license. Fiat-native,
+            rail-agnostic, no crypto required.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
@@ -230,12 +232,16 @@ function ProblemStrip() {
             The missing layer
           </p>
           <p className="text-balance text-[20px] leading-8 text-zinc-200 sm:text-[22px]">
-            AI agents increasingly need live data, specialist APIs, renderers,
-            search tools, simulations, and private subscriptions. Providers
-            need a way to expose those capabilities without making them free,
-            unlimited, or manually provisioned. Stripe moves money. MCP moves
-            calls. ToolMeter decides whether the call should happen, measures
-            it, and accounts for it.
+            Payment rails move money. MCP moves calls. Neither answers the
+            question that actually gates a tool call:{' '}
+            <span className="text-white">
+              can this agent, acting for this end-user, under this
+              subscription or license, within this budget, call this tool right
+              now?
+            </span>{' '}
+            ToolMeter is the control plane that resolves that decision, meters
+            the call, and accounts for it — in fiat, above whatever rail you
+            settle on.
           </p>
         </div>
       </div>
@@ -317,8 +323,8 @@ function Features() {
     },
     {
       icon: Receipt,
-      title: 'Receipts and provenance',
-      body: 'Every paid or entitlement-based call produces a verifiable receipt with cost, license, and hashes.',
+      title: 'Audit-grade provenance',
+      body: 'Every call emits an independently verifiable, exportable receipt — agent, end-user, license, cost, and hashes — built for compliance, not as a payment byproduct.',
     },
     {
       icon: Network,
@@ -394,9 +400,9 @@ function DemoSection() {
     >
       <div className="mx-auto max-w-6xl px-6 py-24 lg:px-8">
         <SectionHeader
-          eyebrow="Spend policy"
-          title="Define how agents can spend. ToolMeter enforces it."
-          subtitle="Pricing belongs to the provider. Permission belongs to you. ToolMeter resolves both at the moment a tool is called, against the policy you wrote, in a single round trip."
+          eyebrow="The access decision"
+          title="Who can call what, for whom, under which license."
+          subtitle="Pricing belongs to the provider. Permission belongs to you. ToolMeter joins agent, end-user, subscription, license, and budget into one allow / ask / deny verdict at the moment a tool is called — in a single round trip."
         />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
@@ -410,7 +416,12 @@ function DemoSection() {
               </span>
             </div>
             <pre className="overflow-x-auto p-6 font-mono text-[12.5px] leading-6 text-zinc-300">
-{`monthly_budget:  $20.00
+{`identity:
+  agent:        naming-agent
+  on_behalf_of: birk@acme
+  subscription: domain-pro
+
+monthly_budget:  $20.00
 max_per_call:    $0.05
 ask_above:       $0.10
 
@@ -470,6 +481,53 @@ verified_providers_only: true`}
                 Every approved call emits a receipt
               </span>
               <span className="font-mono">avg 18ms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function RailAgnostic() {
+  const rails = ['x402', 'Stripe MPP', 'Visa Intelligent Commerce', 'Google AP2']
+  return (
+    <section className="border-t border-white/5 bg-white/[0.015]">
+      <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <p className="text-[11px] font-medium tracking-wider text-blue-300/80 uppercase">
+              No crypto required
+            </p>
+            <h2 className="mt-3 text-balance text-[26px] font-semibold tracking-tight text-white sm:text-[30px]">
+              Pick your rail. Keep your control plane.
+            </h2>
+            <p className="mt-4 max-w-xl text-[15px] leading-7 text-zinc-400">
+              ToolMeter sits <span className="text-zinc-200">above</span> the
+              payment layer, not inside it. Settle in fiat through Stripe today,
+              or route over x402, Visa, or AP2 later — the access decisions,
+              metering, and receipts stay exactly the same. No wallets, no DIDs,
+              no on-chain settlement forced on your agents or your finance team.
+            </p>
+          </div>
+          <div className="flex flex-col items-stretch gap-3">
+            <div className="flex flex-wrap gap-2.5">
+              {rails.map((r) => (
+                <span
+                  key={r}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 font-mono text-[12px] text-zinc-300"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-600" />
+                  {r}
+                </span>
+              ))}
+            </div>
+            <div className="mt-1 flex items-center justify-center gap-2 rounded-xl border border-blue-400/20 bg-blue-400/[0.06] px-4 py-3 text-[13px] text-blue-100">
+              <Shield className="h-4 w-4 text-blue-300" />
+              <span className="font-medium text-white">ToolMeter</span>
+              <span className="text-blue-200/80">
+                — one fiat-native control plane over all of them
+              </span>
             </div>
           </div>
         </div>
