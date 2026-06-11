@@ -4,7 +4,7 @@ import { Logo } from '../components/Logo'
 
 export const Route = createFileRoute('/')({ component: Home })
 
-const BETA_MAILTO = 'mailto:hello@toolmeter.ai?subject=ToolMeter%20beta'
+const BETA_MAILTO = 'mailto:hello@toolwarden.ai?subject=ToolWarden%20beta'
 
 function Home() {
   return (
@@ -34,7 +34,7 @@ function Nav() {
             SDK
           </a>
           <a
-            href="https://github.com/toolmeter"
+            href="https://github.com/toolwarden"
             className="hover:text-zinc-100"
           >
             GitHub
@@ -64,11 +64,11 @@ function Hero() {
             Your agent wants to call a paid tool. Should it?
           </h1>
           <p className="mt-6 max-w-xl text-[16px] leading-7 text-zinc-400">
-            ToolMeter sits in front of your MCP servers and APIs. On every call
+            ToolWarden sits in front of your MCP servers and APIs. On every call
             it answers that one question: is this agent, for this user, on this
             plan, allowed to spend here? Then it meters the call and files a
             receipt you can actually audit. Payment rails move the money.
-            ToolMeter decides whether they should, and keeps the books.
+            ToolWarden decides whether they should, and keeps the books.
           </p>
           <div className="mt-8 flex items-center gap-5">
             <a
@@ -108,7 +108,7 @@ function AuthorizeCard() {
           <span className="text-sky-300">render.screenshot</span>(url,
           viewport)
         </div>
-        <div className="pt-3 text-zinc-500">{`// toolmeter checked`}</div>
+        <div className="pt-3 text-zinc-500">{`// toolwarden checked`}</div>
         <Line ok>birk@acme is on the screenshot-pro plan</Line>
         <Line ok>this agent is cleared for render.*</Line>
         <Line ok>$0.01, under the $0.05 per-call cap</Line>
@@ -162,7 +162,7 @@ function Thesis() {
               it's nobody's idea of a good time to build twice.
             </p>
             <p className="text-zinc-300">
-              ToolMeter is the one HTTP call that answers it:{' '}
+              ToolWarden is the one HTTP call that answers it:{' '}
               <span className="text-zinc-100">
                 can this agent, for this user, on this plan, within budget, call
                 this tool right now?
@@ -191,7 +191,7 @@ function Decision() {
           You write the policy once. It runs on every call.
         </h2>
         <p className="mt-3 max-w-2xl text-[15px] leading-7 text-zinc-400">
-          The provider sets the price. You set the rules. ToolMeter resolves
+          The provider sets the price. You set the rules. ToolWarden resolves
           both the moment a tool is invoked.
         </p>
 
@@ -265,7 +265,7 @@ function Sdk() {
           <div className="order-2 overflow-hidden rounded-lg border border-white/10 bg-zinc-950/60 lg:order-1">
             <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5 font-mono text-[11px] text-zinc-500">
               <span>screenshot-server.ts</span>
-              <span>@toolmeter/mcp</span>
+              <span>@toolwarden/mcp</span>
             </div>
             <pre className="overflow-x-auto px-5 py-5 font-mono text-[12.5px] leading-6 text-zinc-300">
 {`server.tool(
@@ -335,7 +335,7 @@ function Cta() {
           href={BETA_MAILTO}
           className="mt-7 inline-flex h-10 items-center gap-2 rounded-md bg-zinc-100 px-4 text-[14px] font-medium text-zinc-950 hover:bg-white"
         >
-          hello@toolmeter.ai
+          hello@toolwarden.ai
           <ArrowRight className="h-4 w-4" />
         </a>
       </div>
@@ -349,17 +349,17 @@ function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-10 text-[13px] text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
         <Logo showWordmark />
         <div className="flex items-center gap-6">
-          <a href="https://github.com/toolmeter" className="hover:text-zinc-300">
+          <a href="https://github.com/toolwarden" className="hover:text-zinc-300">
             GitHub
           </a>
           <a
-            href="https://www.npmjs.com/org/toolmeter"
+            href="https://www.npmjs.com/org/toolwarden"
             className="hover:text-zinc-300"
           >
             npm
           </a>
-          <a href="mailto:hello@toolmeter.ai" className="hover:text-zinc-300">
-            hello@toolmeter.ai
+          <a href="mailto:hello@toolwarden.ai" className="hover:text-zinc-300">
+            hello@toolwarden.ai
           </a>
         </div>
       </div>

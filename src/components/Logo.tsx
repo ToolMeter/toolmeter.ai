@@ -22,7 +22,7 @@ export function Logo({ className, showWordmark = true }: LogoProps) {
       </span>
       {showWordmark && (
         <span className="text-[15px] font-semibold tracking-tight text-zinc-100">
-          ToolMeter
+          ToolWarden
         </span>
       )}
     </div>

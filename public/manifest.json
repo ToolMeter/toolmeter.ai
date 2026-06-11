@@ -1,6 +1,6 @@
 {
-  "short_name": "ToolMeter",
-  "name": "ToolMeter · Metered access for AI tools",
+  "short_name": "ToolWarden",
+  "name": "ToolWarden · Metered access for AI tools",
   "icons": [
     {
       "src": "favicon-32.png",

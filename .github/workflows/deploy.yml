@@ -30,7 +30,7 @@ jobs:
       - run: pnpm build
       # SPA fallback so client-side routes resolve on direct navigation
       - run: cp dist/index.html dist/404.html
-      - run: echo "toolmeter.ai" > dist/CNAME
+      - run: echo "toolwarden.ai" > dist/CNAME
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
