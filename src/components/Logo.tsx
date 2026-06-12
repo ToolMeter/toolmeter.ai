@@ -22,9 +22,9 @@ export function LogoMark({ className }: { className?: string }) {
         strokeLinejoin="round"
       />
       <g
-        transform="translate(26.5 22) scale(2.05)"
+        transform="translate(31 26) scale(1.78)"
         stroke="#2a78f0"
-        strokeWidth="2.4"
+        strokeWidth="2.7"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
