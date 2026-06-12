@@ -1,3 +1,4 @@
+import React from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowRight, Check, Gauge, Receipt } from 'lucide-react'
 import { Logo } from '../components/Logo'
@@ -320,6 +321,26 @@ function UseCases() {
 }
 
 function Cta() {
+  const [state, setState] = React.useState<'idle' | 'busy' | 'done' | 'error'>('idle')
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = new FormData(e.currentTarget)
+    setState('busy')
+    try {
+      const res = await fetch('https://toolwarden-cloud.bskyum.workers.dev/v1/waitlist', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          email: form.get('email'),
+          segment: form.get('segment'),
+          website: form.get('website'),
+        }),
+      })
+      setState(res.ok ? 'done' : 'error')
+    } catch {
+      setState('error')
+    }
+  }
   return (
     <section className="border-b border-white/[0.06]">
       <div className="mx-auto max-w-5xl px-6 py-20">
@@ -329,15 +350,56 @@ function Cta() {
         </h2>
         <p className="mt-4 max-w-xl text-[15px] leading-7 text-zinc-400">
           The beta is small and hands-on. We're working directly with the first
-          handful of MCP and API providers. Tell us what you're charging for.
+          handful of teams running agents in production. Leave an email and a
+          hint of what you're building.
         </p>
-        <a
-          href={BETA_MAILTO}
-          className="mt-7 inline-flex h-10 items-center gap-2 rounded-md bg-zinc-100 px-4 text-[14px] font-medium text-zinc-950 hover:bg-white"
-        >
-          hello@toolwarden.ai
-          <ArrowRight className="h-4 w-4" />
-        </a>
+        {state === 'done' ? (
+          <p className="mt-7 text-[15px] text-emerald-300">
+            You're on the list. We'll be in touch soon.
+          </p>
+        ) : (
+          <form onSubmit={submit} className="mt-7 flex flex-wrap items-center gap-3">
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@company.com"
+              className="h-10 w-64 rounded-md border border-white/10 bg-zinc-950 px-3 text-[14px] text-zinc-100 placeholder:text-zinc-600 focus:border-white/25 focus:outline-none"
+            />
+            <select
+              name="segment"
+              className="h-10 rounded-md border border-white/10 bg-zinc-950 px-2 text-[13px] text-zinc-300 focus:outline-none"
+              defaultValue=""
+            >
+              <option value="">what fits best?</option>
+              <option value="agent-builder">I build agent products</option>
+              <option value="platform-team">I run agents at a company</option>
+              <option value="tool-provider">I sell a tool or API</option>
+              <option value="curious">Just curious</option>
+            </select>
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+            />
+            <button
+              type="submit"
+              disabled={state === 'busy'}
+              className="inline-flex h-10 items-center gap-2 rounded-md bg-zinc-100 px-4 text-[14px] font-medium text-zinc-950 hover:bg-white disabled:opacity-60"
+            >
+              {state === 'busy' ? 'Joining…' : 'Join the beta'}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            {state === 'error' && (
+              <span className="text-[13px] text-rose-300">
+                That didn't work; email us at hello@toolwarden.ai instead.
+              </span>
+            )}
+          </form>
+        )}
       </div>
     </section>
   )
