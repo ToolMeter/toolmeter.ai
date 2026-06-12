@@ -77,13 +77,19 @@ function Hero() {
             a human taps Approve, and files a tamper-evident receipt for
             everything. Let agents act without holding your breath.
           </p>
-          <div className="mt-8 flex items-center gap-5">
+          <div className="mt-8 flex flex-wrap items-center gap-5">
             <a
               href={BETA_MAILTO}
               className="inline-flex h-10 items-center gap-2 rounded-md bg-zinc-100 px-4 text-[14px] font-medium text-zinc-950 hover:bg-white"
             >
               Request beta access
               <ArrowRight className="h-4 w-4" />
+            </a>
+            <a
+              href="https://toolwarden-cloud.bskyum.workers.dev/demo"
+              className="inline-flex h-10 items-center gap-2 rounded-md border border-blue-500/40 px-4 text-[14px] font-medium text-blue-300 hover:border-blue-400/60 hover:text-blue-200"
+            >
+              View live demo
             </a>
             <a
               href="https://github.com/toolwarden/toolwarden-gateway"
@@ -224,7 +230,15 @@ function Product() {
         </h2>
         <p className="mt-3 max-w-2xl text-[15px] leading-7 text-zinc-400">
           One dashboard for the whole fleet: spend, blocked calls, alerts, and
-          the approval queue. These are real screenshots of a live workspace.
+          the approval queue. These are real screenshots of a live workspace,
+          and you can{' '}
+          <a
+            href="https://toolwarden-cloud.bskyum.workers.dev/demo"
+            className="text-blue-300 underline decoration-blue-500/40 underline-offset-4 hover:text-blue-200"
+          >
+            browse that workspace yourself
+          </a>
+          , receipts and all. No signup.
         </p>
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <figure>
@@ -290,14 +304,15 @@ function NotBlock() {
     ['Not a payment rail.', 'Stripe and x402 move money fine. ToolWarden decides whether they should, then keeps the books.'],
     ['Not an agent framework.', 'Keep LangGraph, Claude Code, whatever you run. ToolWarden is the checkpoint they pass through.'],
     ['Not a proxy you must trust blindly.', 'The gateway is open source, runs on your machines, and its receipts are verifiable without us.'],
+    ['Not a replacement for built-in safety modes.', 'Auto modes inside agent runtimes are useful. ToolWarden is the layer your org controls no matter which agent runs, with evidence the runtime cannot grade itself on.'],
   ]
   return (
     <section className="border-b border-white/[0.06]">
       <div className="mx-auto max-w-5xl px-6 py-16">
         <h2 className="text-[16px] font-semibold text-zinc-200">
-          Three things ToolWarden is not
+          Four things ToolWarden is not
         </h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
           {nots.map(([head, body]) => (
             <p key={head} className="text-[14px] leading-6 text-zinc-400">
               <span className="text-zinc-200">{head}</span> {body}
