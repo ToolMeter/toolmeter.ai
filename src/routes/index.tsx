@@ -566,6 +566,18 @@ function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-10 text-[13px] text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
         <Logo showWordmark />
         <div className="flex items-center gap-6">
+          <a
+            href="https://github.com/toolwarden/toolwarden-gateway/tree/main/docs"
+            className="hover:text-zinc-300"
+          >
+            Docs
+          </a>
+          <a
+            href="https://toolwarden-cloud.bskyum.workers.dev/demo"
+            className="hover:text-zinc-300"
+          >
+            Live demo
+          </a>
           <a href="https://github.com/toolwarden" className="hover:text-zinc-300">
             GitHub
           </a>
