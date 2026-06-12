@@ -12,9 +12,13 @@ function Home() {
     <div className="min-h-screen bg-[#08080a] text-zinc-100 antialiased">
       <Nav />
       <Hero />
-      <Thesis />
+      <Fears />
+      <HowItWorks />
+      <Product />
+      <Vignettes />
       <Decision />
       <Sdk />
+      <NotBlock />
       <UseCases />
       <Cta />
       <Footer />
@@ -30,6 +34,9 @@ function Nav() {
         <nav className="hidden items-center gap-8 text-[13px] text-zinc-400 sm:flex">
           <a href="#how" className="hover:text-zinc-100">
             How it works
+          </a>
+          <a href="#product" className="hover:text-zinc-100">
+            Product
           </a>
           <a href="#sdk" className="hover:text-zinc-100">
             SDK
@@ -59,17 +66,16 @@ function Hero() {
       <div className="relative mx-auto grid max-w-5xl gap-14 px-6 pt-20 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:pt-24">
         <div>
           <p className="font-mono text-[12px] text-zinc-500">
-            Private beta · for people who run MCP servers
+            For teams putting AI agents to work
           </p>
-          <h1 className="mt-5 text-[34px] leading-[1.08] font-semibold tracking-tight text-zinc-50 sm:text-[44px]">
-            Your agent wants to call a paid tool. Should it?
+          <h1 className="mt-5 text-[36px] leading-[1.08] font-semibold tracking-tight text-zinc-50 sm:text-[46px]">
+            Your AI agents ask permission.
           </h1>
-          <p className="mt-6 max-w-xl text-[16px] leading-7 text-zinc-400">
-            ToolWarden sits in front of your MCP servers and APIs. On every call
-            it answers that one question: is this agent, for this user, on this
-            plan, allowed to spend here? Then it meters the call and files a
-            receipt you can actually audit. Payment rails move the money.
-            ToolWarden decides whether they should, and keeps the books.
+          <p className="mt-6 max-w-xl text-[16.5px] leading-7 text-zinc-400">
+            ToolWarden sits between your agents and their tools. It enforces
+            your budgets and rules on every call, pauses the risky ones until
+            a human taps Approve, and files a tamper-evident receipt for
+            everything. Let agents act without holding your breath.
           </p>
           <div className="mt-8 flex items-center gap-5">
             <a
@@ -80,55 +86,226 @@ function Hero() {
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
-              href="#sdk"
+              href="https://github.com/toolwarden/toolwarden-gateway"
               className="text-[14px] text-zinc-400 hover:text-zinc-200"
             >
-              Read the SDK →
+              Open-source gateway →
             </a>
           </div>
           <p className="mt-8 text-[13px] text-zinc-600">
-            Fiat through Stripe. No wallet, no token, no chain to learn.
+            Works with MCP today. No wallet, no token, no chain to learn.
           </p>
         </div>
-        <AuthorizeCard />
+        <ApprovalLoop />
       </div>
     </section>
   )
 }
 
-function AuthorizeCard() {
+function ApprovalLoop() {
   return (
-    <div className="overflow-hidden rounded-lg border border-white/10 bg-zinc-950/60 font-mono text-[12.5px] shadow-xl shadow-black/40">
-      <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5 text-[11px] text-zinc-500">
-        <span>POST /authorize</span>
-        <span className="text-emerald-400">200</span>
+    <div className="overflow-hidden rounded-lg border border-white/10 bg-zinc-950/60 shadow-xl shadow-black/40">
+      <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5 font-mono text-[11px] text-zinc-500">
+        <span>live: an agent hits a guarded action</span>
+        <span className="text-zinc-600">replays every 12s</span>
       </div>
-      <div className="space-y-1 p-5 leading-6">
-        <div className="text-zinc-500">{`// the agent asked to run`}</div>
-        <div className="text-zinc-300">
-          <span className="text-sky-300">render.screenshot</span>(url,
-          viewport)
+      <div className="min-h-[150px] space-y-1.5 px-5 py-4 font-mono text-[12.5px] leading-6">
+        <div className="tw-a1 text-zinc-300">
+          <span className="text-sky-300">claude-code</span> → fs:write_file{' '}
+          <span className="text-zinc-500">deploy.yaml</span>
         </div>
-        <div className="pt-3 text-zinc-500">{`// toolwarden checked`}</div>
-        <Line ok>birk@acme is on the screenshot-pro plan</Line>
-        <Line ok>this agent is cleared for render.*</Line>
-        <Line ok>$0.01, under the $0.05 per-call cap</Line>
-        <div className="flex items-center gap-2 pt-3 text-zinc-100">
-          <ArrowRight className="h-3.5 w-3.5 text-zinc-500" />
-          allowed
+        <div className="tw-a2 text-amber-300/90">policy: writes need approval</div>
+        <div className="tw-a3 text-zinc-500">holding the call · a human has been asked…</div>
+        <div className="tw-a4 text-emerald-300">approved by maria · 4.2s</div>
+        <div className="tw-a5 text-zinc-400">
+          receipt <span className="text-zinc-300">rcpt_8af3c2</span> filed and countersigned
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-px border-t border-white/[0.06] bg-white/[0.04] text-[11.5px]">
-        <div className="flex items-center gap-2 bg-[#0b0b0e] px-4 py-3 text-zinc-400">
-          <Receipt className="h-3.5 w-3.5 text-sky-300" />
-          receipt rcpt_8af3c2
-        </div>
-        <div className="flex items-center gap-2 bg-[#0b0b0e] px-4 py-3 text-zinc-400">
-          <Gauge className="h-3.5 w-3.5 text-sky-300" />
-          $4.79 of $5.00 left
+      <div className="tw-acard border-t border-white/[0.06] bg-white/[0.02] px-5 py-3.5">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-[12px] font-medium text-zinc-200">
+              ToolWarden · approval needed
+            </div>
+            <div className="truncate text-[12px] text-zinc-500">
+              claude-code wants fs:write_file on prod-eu-1
+            </div>
+          </div>
+          <div className="flex shrink-0 items-center gap-2 font-mono text-[12px]">
+            <span className="tw-apress">Approve</span>
+            <span className="rounded-md border border-rose-400/30 px-2.5 py-0.5 text-rose-300">Deny</span>
+          </div>
         </div>
       </div>
     </div>
+  )
+}
+
+function Fears() {
+  const items = [
+    {
+      title: 'Runaway spend',
+      body: 'Monthly budgets, per-call ceilings, and hourly rate limits stop a looping agent at call 100, not on the invoice.',
+    },
+    {
+      title: 'Unsafe actions',
+      body: 'Allow, deny, or ask: risky calls pause until a person approves, from a dashboard inbox or a one-tap Slack link.',
+    },
+    {
+      title: 'No paper trail',
+      body: 'Every decision becomes a hash-chained, countersigned receipt. An auditor can verify the whole month offline.',
+    },
+  ]
+  return (
+    <section className="border-b border-white/[0.06]">
+      <div className="mx-auto grid max-w-5xl gap-px overflow-hidden px-6 py-14 md:grid-cols-3 md:gap-8">
+        {items.map((f) => (
+          <div key={f.title}>
+            <h3 className="text-[15px] font-semibold text-zinc-100">{f.title}</h3>
+            <p className="mt-2 text-[14px] leading-6 text-zinc-400">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function HowItWorks() {
+  const steps = [
+    {
+      n: '1',
+      title: 'An agent calls a tool',
+      body: 'Your agents keep working exactly as before. ToolWarden sits invisibly between them and every tool they use.',
+    },
+    {
+      n: '2',
+      title: 'The warden decides',
+      body: 'Your policy answers in milliseconds: allow it, block it, or hold it for a human. Budgets and rate limits apply to every call.',
+    },
+    {
+      n: '3',
+      title: 'A receipt is filed',
+      body: 'Allowed or not, the decision lands in a tamper-evident audit trail you can search, export, and prove to anyone.',
+    },
+  ]
+  return (
+    <section id="how" className="border-b border-white/[0.06]">
+      <div className="mx-auto max-w-5xl px-6 py-20">
+        <h2 className="text-[22px] font-semibold tracking-tight text-zinc-100">
+          How it works
+        </h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {steps.map((s, i) => (
+            <div key={s.n} className="relative rounded-lg border border-white/10 bg-zinc-950/50 p-5">
+              <div className="flex items-center gap-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2a78f0]/15 font-mono text-[12px] text-[#5b9bf5]">
+                  {s.n}
+                </span>
+                <h3 className="text-[14.5px] font-medium text-zinc-100">{s.title}</h3>
+                {i < 2 && (
+                  <ArrowRight className="absolute -right-5 top-1/2 hidden h-4 w-4 -translate-y-1/2 text-zinc-700 md:block" />
+                )}
+              </div>
+              <p className="mt-3 text-[13.5px] leading-6 text-zinc-400">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Product() {
+  return (
+    <section id="product" className="border-b border-white/[0.06]">
+      <div className="mx-auto max-w-5xl px-6 py-20">
+        <h2 className="text-[22px] font-semibold tracking-tight text-zinc-100">
+          This is what your team sees
+        </h2>
+        <p className="mt-3 max-w-2xl text-[15px] leading-7 text-zinc-400">
+          One dashboard for the whole fleet: spend, blocked calls, alerts, and
+          the approval queue. These are real screenshots of a live workspace.
+        </p>
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <figure>
+            <div className="overflow-hidden rounded-lg border border-white/10 shadow-2xl shadow-black/50">
+              <img src="/shots/dashboard.png" alt="ToolWarden Cloud dashboard: spend by day, alerts, gateways with countersigned chain heads" loading="lazy" />
+            </div>
+            <figcaption className="mt-3 text-[13px] text-zinc-500">
+              Fleet overview: spend by day, a rate-limit alert, and three
+              gateways with countersigned audit chains.
+            </figcaption>
+          </figure>
+          <figure>
+            <div className="overflow-hidden rounded-lg border border-white/10 shadow-2xl shadow-black/50">
+              <img src="/shots/approvals.png" alt="ToolWarden approvals inbox with pending requests and approve/deny buttons" loading="lazy" />
+            </div>
+            <figcaption className="mt-3 text-[13px] text-zinc-500">
+              The approval queue: approve once, for an hour, or for the day.
+              Slack gets one-tap signed links.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Vignettes() {
+  const stories = [
+    {
+      when: 'Friday, 4:52 pm',
+      story:
+        'Claude Code wants to edit a production config. ToolWarden holds the call and pings Slack. Maria reads the diff context, taps Approve. The edit lands, receipt filed, weekend saved.',
+    },
+    {
+      when: 'Tuesday, 3 am',
+      story:
+        'An agent gets stuck in a loop on a paid search API. At call 120 in an hour, the rate limit cuts it off and posts an alert. Total damage: 48 cents, not a four-digit invoice.',
+    },
+    {
+      when: 'End of quarter',
+      story:
+        'The auditor asks what your agents actually did. You send one file. They verify every receipt, chain link, and signature offline in their browser. Twenty minutes, no meetings.',
+    },
+  ]
+  return (
+    <section className="border-b border-white/[0.06] bg-white/[0.015]">
+      <div className="mx-auto max-w-5xl px-6 py-20">
+        <div className="grid gap-8 md:grid-cols-3">
+          {stories.map((v) => (
+            <div key={v.when}>
+              <p className="font-mono text-[12px] text-[#5b9bf5]">{v.when}</p>
+              <p className="mt-3 text-[14.5px] leading-7 text-zinc-300">{v.story}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function NotBlock() {
+  const nots = [
+    ['Not a payment rail.', 'Stripe and x402 move money fine. ToolWarden decides whether they should, then keeps the books.'],
+    ['Not an agent framework.', 'Keep LangGraph, Claude Code, whatever you run. ToolWarden is the checkpoint they pass through.'],
+    ['Not a proxy you must trust blindly.', 'The gateway is open source, runs on your machines, and its receipts are verifiable without us.'],
+  ]
+  return (
+    <section className="border-b border-white/[0.06]">
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <h2 className="text-[16px] font-semibold text-zinc-200">
+          Three things ToolWarden is not
+        </h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          {nots.map(([head, body]) => (
+            <p key={head} className="text-[14px] leading-6 text-zinc-400">
+              <span className="text-zinc-200">{head}</span> {body}
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -138,43 +315,6 @@ function Line({ ok, children }: { ok?: boolean; children: React.ReactNode }) {
       {ok && <Check className="h-3.5 w-3.5 shrink-0 text-emerald-400" />}
       {children}
     </div>
-  )
-}
-
-function Thesis() {
-  return (
-    <section id="how" className="border-b border-white/[0.06]">
-      <div className="mx-auto max-w-5xl px-6 py-20">
-        <div className="max-w-2xl">
-          <h2 className="text-[22px] font-semibold tracking-tight text-zinc-100">
-            Two things already exist. The thing in between doesn't.
-          </h2>
-          <div className="mt-6 space-y-4 text-[15px] leading-7 text-zinc-400">
-            <p>
-              Stripe and x402 can move a fraction of a cent. MCP can carry the
-              call. But neither one knows whether the call should happen. That's
-              the part that actually keeps you up at night, once an agent is
-              spending on someone's behalf.
-            </p>
-            <p>
-              So most paid tools end up gated by a hand-rolled mix of API keys,
-              a usage table, a cron job that emails an invoice, and a Slack
-              message when something looks wrong. It works until it doesn't, and
-              it's nobody's idea of a good time to build twice.
-            </p>
-            <p className="text-zinc-300">
-              ToolWarden is the one HTTP call that answers it:{' '}
-              <span className="text-zinc-100">
-                can this agent, for this user, on this plan, within budget, call
-                this tool right now?
-              </span>{' '}
-              Then it records what it decided. That's it. Everything else is
-              downstream of getting that answer right.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
   )
 }
 
